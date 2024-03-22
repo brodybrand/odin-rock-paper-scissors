@@ -1,1 +1,2 @@
 # odin-rock-paper-scissors
+A Rock Paper Scissors game featuring a computer opponent (randomly generated shoot). This project is to practice building an application from scratch, with a major focus on Javascript. Particularly interested in practicing pseudocoding and debugging while getting more adjusted to JS syntax (;).
