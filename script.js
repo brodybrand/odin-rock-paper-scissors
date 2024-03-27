@@ -13,10 +13,18 @@ let ties = 0
 
 let totalGames = userWins + userLoses + ties;
 
+let playing = true
+
 
 // User option is saved to playerSelection
-function getPlayerChoice (choice) {
-    return playerSelection = prompt("Rock, Paper, or, Scissors?").toLowerCase();
+function getPlayerChoice () {
+    playerSelection = prompt("Rock, Paper, or, Scissors?").toLowerCase();
+    // determine if playerSelection is a valid option
+    if (options.includes(playerSelection)) {
+        return playerSelection;
+    } else {
+        return console.log('Please only enter "rock", "paper", or "scissors"');
+    }
 }
 
 // Create function for computer generated random throw, getComputerChoice
@@ -33,7 +41,7 @@ function getComputerChoice() {
 }
 
 // Logic handles outcomes as gameResult (userWin, userLose)
-function play() {
+function playRound() {
     getPlayerChoice();
     getComputerChoice();
     console.log('playerSelection: ' + playerSelection);
@@ -52,10 +60,24 @@ function play() {
         return console.log('You win.');
     }
 }
+
+function playGame() {
+    for (let i = 0; i < 5; i++) {
+        if (i === 4) {
+            playRound();
+            console.log("Wins: " + userWins);
+            console.log("Loses: " + userLoses);
+            console.log("Ties: " + ties);
+            userWins = 0;
+            userLoses = 0;
+            ties = 0;
+        } else playRound();
+    }
+}
 // 	IF playerSelection beats computerSelection THEN counter userWins gets plus one
 //	IF computerSelection beats playerSelection THEN counter userLosses gets plus one
 
 // Output gameResult to console.
 
 
-play()
+playGame();
