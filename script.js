@@ -1,34 +1,85 @@
-// Create array with viable options for game
-let options = ['rock', 'paper', 'scissors'];
-// Create variable, playerSelection, for user input
-let playerSelection = '';
-// Create variable, computerSelection, for computer input
-let computerSelection = '';
-// Initialize counter for userWins
+// initialize variables to default values
 let userWins = 0;
-// Initialize counter for userLoses
 let userLoses = 0;
+let ties = 0;
+let totalGames = 0;
+let playerChoice = ''
+let computerChoice = ''
 
-let ties = 0
+const rockBtn = document.querySelector("#rock-btn");
+rockBtn.addEventListener("click", () => {
+    playerChoice= "rock";
+    computerChoice = getComputerChoice();
+    playRound(playerChoice, computerChoice);
+    updateDisplays();
+    checkTotal();
+});
 
-let totalGames = userWins + userLoses + ties;
+const paperBtn = document.querySelector("#paper-btn");
+paperBtn.addEventListener("click", () => {
+    playerChoice = "paper";
+    computerChoice = getComputerChoice();
+    playRound(playerChoice, computerChoice);    
+    updateDisplays();
+    checkTotal();
+});
 
-let playing = true
+const scissorsBtn = document.querySelector("#scissors-btn");
+scissorsBtn.addEventListener("click", () => {
+    playerChoice = "scissors";
+    computerChoice = getComputerChoice();
+    playRound(playerChoice, computerChoice); 
+    updateDisplays();
+    checkTotal();
+});
 
+const restartButton = document.querySelector("#restart-btn");
+restartButton.addEventListener("click", () => {
+    userWins = 0;
+    userLoses = 0;
+    ties = 0;
+    totalGames = 0;
+    userChoice = '';
+    computerChoice = '';
+    playerChoice =''
+    let result = document.querySelector("#game-result");
+    result.textContent = ''
+    updateDisplays();
+});
 
-// User option is saved to playerSelection
-function getPlayerChoice () {
-    playerSelection = prompt("Rock, Paper, or, Scissors?").toLowerCase();
-    // determine if playerSelection is a valid option
-    if (options.includes(playerSelection)) {
-        return playerSelection;
-    } else {
-        return console.log('Please only enter "rock", "paper", or "scissors"');
+function checkTotal() {
+    let result = document.querySelector("#game-result");
+    if (totalGames === 5) {
+        if (userWins > userLoses){
+            result.textContent = "You won!"
+        } if (userWins < userLoses){
+            result.textContent = "You lost."
+        } if (userWins === userLoses){
+            result.textContent = "Its a tie."
+        }
+    } if (totalGames > 5) {
+        result.textContent = "∞ To Infinity ∞"
     }
+
 }
 
-// Create function for computer generated random throw, getComputerChoice
-//	return choice to computerSelection variable
+function updateDisplays() {
+    userDisplay = document.querySelector("#user-choice")
+    userDisplay.textContent = ("You: " + playerChoice)
+
+    cpuDisplay = document.querySelector("#computer-choice");
+    cpuDisplay.textContent = ("Computer: " + computerChoice);
+
+    winsDisplay = document.querySelector("#wins");
+    winsDisplay.textContent = ("Wins: " + userWins);
+
+    losesDisplay = document.querySelector("#loses");
+    losesDisplay.textContent = ("Loses: " + userLoses);
+
+    tiesDisplay = document.querySelector("#ties");
+    tiesDisplay.textContent = ("Ties: " + ties); 
+}
+
 function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -36,48 +87,22 @@ function getRandomInt(min, max) {
 }
 
 function getComputerChoice() {
+    let options = ['rock', 'paper', 'scissors'];
     choice = options[getRandomInt(0, 2)];
-    return computerSelection = choice;
+    return computerChoice = choice;
 }
 
-// Logic handles outcomes as gameResult (userWin, userLose)
-function playRound() {
-    getPlayerChoice();
-    getComputerChoice();
-    console.log('playerSelection: ' + playerSelection);
-    console.log('computerSelection: ' + computerSelection);
-    
-    if (playerSelection == computerSelection) {
+function playRound(playerChoice,computerChoice) {
+    if (playerChoice === computerChoice) {
         ties += 1;
-        return console.log('Its a tie.');
-    } else if (playerSelection == 'rock' && computerSelection == 'paper'
-        || playerSelection === 'paper' && computerSelection == 'scissors'
-        || playerSelection == 'scissors' && computerSelection == 'rock') {
+        totalGames += 1;
+    } else if (playerChoice == 'rock' && computerChoice == 'paper'
+        || playerChoice === 'paper' && computerChoice == 'scissors'
+        || playerChoice == 'scissors' && computerChoice == 'rock') {
             userLoses += 1;
-            return console.log('You lose');
+            totalGames += 1;
     } else {
         userWins += 1;
-        return console.log('You win.');
+        totalGames += 1;
     }
 }
-
-function playGame() {
-    for (let i = 0; i < 5; i++) {
-        if (i === 4) {
-            playRound();
-            console.log("Wins: " + userWins);
-            console.log("Loses: " + userLoses);
-            console.log("Ties: " + ties);
-            userWins = 0;
-            userLoses = 0;
-            ties = 0;
-        } else playRound();
-    }
-}
-// 	IF playerSelection beats computerSelection THEN counter userWins gets plus one
-//	IF computerSelection beats playerSelection THEN counter userLosses gets plus one
-
-// Output gameResult to console.
-
-
-playGame();
