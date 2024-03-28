@@ -4,6 +4,9 @@
         <meta charset="UTF-8">
         <title>Rock Paper Scissors</title>
         <style>
+            * {
+                text-align: center;
+            }
             .options {
                 list-style-type: none;
                 margin: 0;
@@ -21,13 +24,14 @@
         <div class="container">
             <h3>Best of 5... or Infinite</h3>
             <ul class="options">
-                <li><button id="rock-btn">Rock</button></li>
-                <li><button id="paper-btn">Paper</button></li>
-                <li><button id="scissors-btn">Scissors</button></li>
+                <li><button id="rock">Rock</button></li>
+                <li><button id="paper">Paper</button></li>
+                <li><button id="scissors">Scissors</button></li>
             </ul>
+            <h4 id="user-choice">You: </h4>
             <h4 id="computer-choice">Computer: </h4>
             <p id="wins">Wins</p>
-            <p id="loses"> Loses</p>
+            <p id="losses"> Losses</p>
             <p id="ties">Ties</p>
             <h4 id="game-result"></h4>
             <button id="restart-btn">Restart</button>
